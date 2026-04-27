@@ -193,53 +193,7 @@ plt.tight_layout()
 plt.savefig(os.path.join(OUT_DIR, "expo_occ_buildings.png"), dpi=150, bbox_inches="tight")
 plt.close()
 
-# ── Fig 2: Occupancy — floor area (bar) ────────────────────────────────────
-print("Plotting expo_occ_area.png ...")
-fig, ax = plt.subplots(figsize=(7, 4.5))
-area_plot = grp_occ.set_index("OCCUPANCY")["TOTAL_AREA_SQM"] / 1e6
-bars = ax.bar(area_plot.index,
-              area_plot.values,
-              color=[COLORS_OCC.get(o,"#999") for o in area_plot.index],
-              edgecolor="white", linewidth=0.6, width=0.55)
-for bar in bars:
-    h = bar.get_height()
-    ax.text(bar.get_x() + bar.get_width()/2, h + area_plot.max()*0.01,
-            f"{h:.2f}M", ha="center", va="bottom", fontsize=9, fontweight="bold")
-ax.set_title("Total Floor Area by Occupancy Class\nChiang Mai, Thailand",
-             fontsize=12, fontweight="bold", pad=10)
-ax.set_xlabel("Occupancy Class", fontsize=10)
-ax.set_ylabel("Total Floor Area (million m²)", fontsize=10)
-ax.spines[["top","right"]].set_visible(False)
-ax.set_ylim(0, area_plot.max() * 1.18)
-plt.tight_layout()
-plt.savefig(os.path.join(OUT_DIR, "expo_occ_area.png"), dpi=150, bbox_inches="tight")
-plt.close()
-
-# ── Fig 3: Structural type — buildings (horizontal bar) ─────────────────────
-print("Plotting expo_taxo_buildings.png ...")
-st_plot = (grp_st.groupby("MACRO_TAXO")["BUILDINGS"]
-               .sum()
-               .sort_values(ascending=True))
-fig, ax = plt.subplots(figsize=(7, max(4, len(st_plot)*0.55)))
-colors = [COLORS_TAXO.get(t, "#999") for t in st_plot.index]
-bars = ax.barh(st_plot.index, st_plot.values,
-               color=colors, edgecolor="white", linewidth=0.6, height=0.6)
-for bar in bars:
-    w = bar.get_width()
-    ax.text(w + st_plot.max()*0.01, bar.get_y() + bar.get_height()/2,
-            f"{w:,.0f}", va="center", fontsize=9, fontweight="bold")
-ax.set_title("Building Count by Structural Type\nChiang Mai, Thailand",
-             fontsize=12, fontweight="bold", pad=10)
-ax.set_xlabel("Number of Buildings", fontsize=10)
-ax.set_ylabel("Structural Type (Macro Taxonomy)", fontsize=10)
-ax.xaxis.set_major_formatter(mticker.FuncFormatter(fmt_k))
-ax.spines[["top","right"]].set_visible(False)
-ax.set_xlim(0, st_plot.max() * 1.18)
-plt.tight_layout()
-plt.savefig(os.path.join(OUT_DIR, "expo_taxo_buildings.png"), dpi=150, bbox_inches="tight")
-plt.close()
-
-# ── Fig 4: Story class distribution (stacked bar by occupancy) ─────────────
+# ── Fig 3: Story class distribution (stacked bar by occupancy) ─────────────
 print("Plotting expo_story_class.png ...")
 story_order = ["H:1","H:2-3","H:4-5","H:6-9","H:10+"]
 pivot = (grp_ht.pivot_table(index="OCCUPANCY", columns="HEIGHT_CLASS",
@@ -300,8 +254,7 @@ print("="*55)
 print("\nFiles generated:")
 for f in ["Exposure_Summary_OccClass.csv","Exposure_Summary_Taxonomy.csv",
           "Exposure_Summary_STType.csv","Exposure_Summary_StoryClass.csv",
-          "expo_occ_buildings.png","expo_occ_area.png",
-          "expo_taxo_buildings.png","expo_story_class.png","expo_occ_pie.png"]:
+          "expo_occ_buildings.png","expo_story_class.png","expo_occ_pie.png"]:
     path = os.path.join(OUT_DIR, f)
     size = os.path.getsize(path) if os.path.exists(path) else 0
     print(f"  [ok] {f}  ({size/1024:.1f} KB)")

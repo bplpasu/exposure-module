@@ -14,9 +14,7 @@ exposure-module/
 ├── Exposure_Summary_STType.csv        # Building count & area by structural type
 ├── Exposure_Summary_StoryClass.csv    # Building count & area by height class
 ├── expo_occ_buildings.png             # Chart: buildings by occupancy
-├── expo_occ_area.png                  # Chart: floor area by occupancy
 ├── expo_occ_pie.png                   # Chart: occupancy share (pie)
-├── expo_taxo_buildings.png            # Chart: buildings by structural type
 ├── expo_story_class.png               # Chart: buildings by height class
 └── analyze.py                         # Analysis & figure generation script
 ```
@@ -29,15 +27,7 @@ exposure-module/
 
 ![Buildings by Occupancy](expo_occ_buildings.png)
 
-![Floor Area by Occupancy](expo_occ_area.png)
-
 ![Occupancy Share](expo_occ_pie.png)
-
-* * *
-
-### Structural Type Distribution
-
-![Buildings by Structural Type](expo_taxo_buildings.png)
 
 * * *
 

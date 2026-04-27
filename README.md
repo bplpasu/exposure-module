@@ -32,13 +32,6 @@ Building-level exposure dataset for Chiang Mai derived from building footprint d
 | `Condition` | Text | Building condition rating |
 | `AGE` | Text | Building age class |
 | `Cluster` | Integer | Spatial cluster ID |
-| `GG_SURVEY_MU` | Integer | Google Street View survey flag (MU area) |
-| `GG_SURVEY_SPACE` | Integer | Google Street View survey flag (space imagery) |
-| `GG_SURVEY_UAV` | Integer | UAV survey flag |
-| `WK_SURVEY_R1` | Integer | Walk survey round 1 flag |
-| `WK_SURVEY_R2` | Integer | Walk survey round 2 flag |
-| `TRUEEXPOSURE` | Integer | Flag indicating verified exposure record |
-| `Extrapolated` | Integer | Flag for statistically imputed records |
 
 * * *
 

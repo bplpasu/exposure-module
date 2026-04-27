@@ -72,15 +72,27 @@ Occupancy follows the **HAZUS classification** system, mapped to GEM categories:
 
 ### Structural Types
 
-| Code | GEM Macro-Taxonomy | Description |
-|---|---|---|
-| `C1` | CR/LFINF | Concrete frame with infill |
-| `C2` | CR/LDUAL | Concrete dual system |
-| `C3` | CR/LWAL | Concrete shear wall |
-| `W1` / `W2` | W | Wood frame |
-| `RM1` / `RM2` / `URM` | MUR | Masonry unreinforced/reinforced |
-| `S1`–`S5` | S | Steel frame |
-| `PC1` / `PC2` | PCR | Pre-cast concrete |
+Building structural types follow the **HAZUS SIC** classification as used in the Basic-Level Building Survey Form:
+
+| Code | GEM Macro-Taxonomy | Description | Stories |
+|---|---|---|---|
+| `W1` | W | Wood (≤ 465 m²) | 1 |
+| `W2` | W | Wood (> 465 m²) | 2+ |
+| `S1` | S/MF | Steel Moment Frame | 1–3 / 4–7 / 8+ |
+| `S2` | S/BF | Steel Braced Frame | 1–3 / 4–7 / 8+ |
+| `S3` | S/LF | Steel Light Frame | All |
+| `S4` | S/LWAL | Steel Frame with Cast-in-Place Concrete Shear Walls | 1–3 / 4–7 / 8+ |
+| `S5` | S/LFINF | Steel Frame with Unreinforced Masonry Infill Walls | 1–3 / 4–7 / 8+ |
+| `C1` | CR/MF | Concrete Moment Frame | 1–3 / 4–7 / 8+ |
+| `C2` | CR/LWAL | Concrete Shear Walls | 1–3 / 4–7 / 8+ |
+| `C3` | CR/LFINF | Concrete Frame with Unreinforced Masonry Infill Walls | 1–3 / 4–7 / 8+ |
+| `C4` | CR/LFINF+FS | Concrete Frame with Unreinforced Masonry Infill Walls (Flat Slab) | 1–3 / 4–7 / 8+ |
+| `PC1` | PCR/LWAL | Precast Concrete Tilt-Up Walls | All |
+| `PC2` | PCR/LDUAL | Precast Concrete Frames with Concrete Shear Walls | 1–3 / 4–7 / 8+ |
+| `RM1` | MR/LWAL | Reinforced Masonry Bearing Walls with Wood or Metal Deck Diaphragms | 1–3 / 4+ |
+| `RM2` | MR/LWAL | Reinforced Masonry Bearing Walls with Precast Concrete Diaphragms | 1–3 / 4–7 / 8+ |
+| `URM` / `URML` | MUR/LWAL | Unreinforced Masonry Bearing Walls | 1–2 / 3+ |
+| `MH` | MH | Mobile Homes | All |
 
 * * *
 

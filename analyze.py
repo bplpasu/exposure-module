@@ -32,16 +32,35 @@ OCC_MAP = {
     "EDU1": "Other", "EDU2": "Other",
 }
 
-# Structural type → short macro-taxonomy label
+# Structural type → GEM macro-taxonomy label
+# Based on Basic-Level Building Survey Form (HAZUS SIC classification)
+# C1  = Concrete Moment Frame              → CR/MF
+# C2  = Concrete Shear Walls               → CR/LWAL
+# C3  = Concrete Frame w/ URM Infill       → CR/LFINF
+# C4  = Concrete Frame w/ URM Infill (FS)  → CR/LFINF+FS
+# S1  = Steel Moment Frame                 → S/MF
+# S2  = Steel Braced Frame                 → S/BF
+# S3  = Steel Light Frame                  → S/LF
+# S4  = Steel Frame w/ Conc. Shear Walls   → S/LWAL
+# S5  = Steel Frame w/ URM Infill          → S/LFINF
+# W1  = Wood ≤465m²                        → W
+# W2  = Wood >465m²                        → W
+# PC1 = Precast Conc. Tilt-Up Walls        → PCR/LWAL
+# PC2 = Precast Conc. Frames w/ Shear Walls→ PCR/LDUAL
+# RM1 = Reinf. Masonry w/ Wood/Metal Deck  → MR/LWAL
+# RM2 = Reinf. Masonry w/ Precast Conc.    → MR/LWAL
+# URM/URML = Unreinf. Masonry Bearing Walls→ MUR/LWAL
+# MH  = Mobile Homes                       → MH
 TAXO_LABEL = {
-    "C1": "CR/LFINF",  "C2": "CR/LDUAL", "C3": "CR/LWAL",
-    "PC1": "PCR",       "PC2": "PCR",
-    "S1": "S",          "S2": "S",        "S3": "S",   "S4": "S",   "S5": "S",
-    "W1": "W",          "W2": "W",
-    "MH": "MH",
-    "RM1": "MUR",       "RM2": "MUR",
-    "URM": "MUR",
-    "URML": "MUR",      "URMM": "MUR",
+    "C1":  "CR/MF",      "C2":  "CR/LWAL",      "C3":  "CR/LFINF",
+    "C4":  "CR/LFINF+FS",
+    "PC1": "PCR/LWAL",   "PC2": "PCR/LDUAL",
+    "S1":  "S/MF",       "S2":  "S/BF",         "S3":  "S/LF",
+    "S4":  "S/LWAL",     "S5":  "S/LFINF",
+    "W1":  "W",          "W2":  "W",
+    "MH":  "MH",
+    "RM1": "MR/LWAL",    "RM2": "MR/LWAL",
+    "URM": "MUR/LWAL",   "URML": "MUR/LWAL",
 }
 
 # ── Load data ───────────────────────────────────────────────────────────────
@@ -285,4 +304,4 @@ for f in ["Exposure_Summary_OccClass.csv","Exposure_Summary_Taxonomy.csv",
           "expo_taxo_buildings.png","expo_story_class.png","expo_occ_pie.png"]:
     path = os.path.join(OUT_DIR, f)
     size = os.path.getsize(path) if os.path.exists(path) else 0
-    print(f"  ✓ {f}  ({size/1024:.1f} KB)")
+    print(f"  [ok] {f}  ({size/1024:.1f} KB)")

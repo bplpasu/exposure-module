@@ -203,31 +203,30 @@ plt.tight_layout()
 plt.savefig(os.path.join(OUT_DIR, "expo_occ_buildings.png"), dpi=150, bbox_inches="tight")
 plt.close()
 
-# ── Fig 3: Height class distribution (bar, 3 categories) ───────────────────
+# ── Fig 3: Height class by occupancy (stacked bar, 3×3) ────────────────────
 print("Plotting expo_story_class.png ...")
-grp_ht3 = (df.groupby("STORY_3CAT")
-             .agg(BUILDINGS=("BLDGID","count"),
-                  TOTAL_AREA_SQM=("FL_AREA","sum"))
-             .reset_index()
-             .rename(columns={"STORY_3CAT":"HEIGHT_CLASS"}))
-grp_ht3 = grp_ht3.set_index("HEIGHT_CLASS").reindex(["Low-rise","Mid-rise","High-rise"]).reset_index()
-COLORS_HT = {"Low-rise":"#4C72B0","Mid-rise":"#DD8452","High-rise":"#55A868"}
+pivot_ht = (df.groupby(["OCC_3CAT","STORY_3CAT"])
+              .agg(BUILDINGS=("BLDGID","count"))
+              .reset_index()
+              .pivot(index="OCC_3CAT", columns="STORY_3CAT", values="BUILDINGS")
+              .reindex(index=["Res","Com","Others"],
+                       columns=["Low-rise","Mid-rise","High-rise"])
+              .fillna(0))
+COLORS_HT = ["#4C72B0","#DD8452","#55A868"]
 fig, ax = plt.subplots(figsize=(6, 4.5))
-ht_plot = grp_ht3.set_index("HEIGHT_CLASS")["BUILDINGS"]
-bars = ax.bar(ht_plot.index, ht_plot.values,
-              color=[COLORS_HT.get(h,"#999") for h in ht_plot.index],
-              edgecolor="white", linewidth=0.6, width=0.45)
-for bar in bars:
-    h = bar.get_height()
-    ax.text(bar.get_x() + bar.get_width()/2, h + ht_plot.max()*0.01,
-            f"{h:,.0f}", ha="center", va="bottom", fontsize=9, fontweight="bold")
-ax.set_title("Building Count by Height Class\nChiang Mai, Thailand",
+bottom = np.zeros(len(pivot_ht))
+for col, color in zip(pivot_ht.columns, COLORS_HT):
+    ax.bar(pivot_ht.index, pivot_ht[col], bottom=bottom,
+           label=col, color=color, edgecolor="white", linewidth=0.6, width=0.45)
+    bottom += pivot_ht[col].values
+ax.set_title("Building Count by Occupancy & Height Class\nChiang Mai, Thailand",
              fontsize=12, fontweight="bold", pad=10)
-ax.set_xlabel("Height Class", fontsize=10)
+ax.set_xlabel("Occupancy", fontsize=10)
 ax.set_ylabel("Number of Buildings", fontsize=10)
 ax.yaxis.set_major_formatter(mticker.FuncFormatter(fmt_k))
+ax.legend(title="Height Class", bbox_to_anchor=(1.01, 1), loc="upper left",
+          fontsize=9, title_fontsize=9)
 ax.spines[["top","right"]].set_visible(False)
-ax.set_ylim(0, ht_plot.max() * 1.15)
 plt.tight_layout()
 plt.savefig(os.path.join(OUT_DIR, "expo_story_class.png"), dpi=150, bbox_inches="tight")
 plt.close()

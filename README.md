@@ -39,6 +39,12 @@ exposure-module/
 
 ### Height Class Distribution
 
+| Class | Stories | Buildings | Share |
+|---|---|---|---|
+| Low-rise | 1–3 | 93,019 | 96.26% |
+| Mid-rise | 4–9 | 3,517 | 3.64% |
+| High-rise | 10+ | 99 | 0.10% |
+
 ![Buildings by Height Class](results/expo_story_class.png)
 
 * * *

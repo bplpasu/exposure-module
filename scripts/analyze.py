@@ -92,6 +92,8 @@ def story_band(n):
         return "H:1"
 
 df["STORY_BAND"] = df["STORY"].apply(story_band)
+df["STORY_3CAT"] = df["STORY_BAND"].apply(
+    lambda x: "Low-rise" if x in ("H:1","H:2-3") else ("Mid-rise" if x in ("H:4-5","H:6-9") else "High-rise"))
 df["TAXONOMY"]   = df["MACRO_TAXO"] + "/" + df["STORY_BAND"] + "/" + df["OC_CLASS"]
 
 # ── 1. Exposure_Summary_OccClass.csv  (Adm0 level by occupancy) ────────────
@@ -201,29 +203,31 @@ plt.tight_layout()
 plt.savefig(os.path.join(OUT_DIR, "expo_occ_buildings.png"), dpi=150, bbox_inches="tight")
 plt.close()
 
-# ── Fig 3: Story class distribution (stacked bar by occupancy) ─────────────
+# ── Fig 3: Height class distribution (bar, 3 categories) ───────────────────
 print("Plotting expo_story_class.png ...")
-story_order = ["H:1","H:2-3","H:4-5","H:6-9","H:10+"]
-pivot = (grp_ht.pivot_table(index="OCCUPANCY", columns="HEIGHT_CLASS",
-                              values="BUILDINGS", aggfunc="sum")
-               .reindex(columns=[s for s in story_order
-                                   if s in grp_ht["HEIGHT_CLASS"].unique()])
-               .fillna(0))
-fig, ax = plt.subplots(figsize=(8, 5))
-bottom = np.zeros(len(pivot))
-palette = plt.cm.Blues(np.linspace(0.35, 0.9, len(pivot.columns)))
-for i, col in enumerate(pivot.columns):
-    ax.bar(pivot.index, pivot[col], bottom=bottom,
-           label=col, color=palette[i], edgecolor="white", linewidth=0.5)
-    bottom += pivot[col].values
-ax.set_title("Building Count by Occupancy & Height Class\nChiang Mai, Thailand",
+grp_ht3 = (df.groupby("STORY_3CAT")
+             .agg(BUILDINGS=("BLDGID","count"),
+                  TOTAL_AREA_SQM=("FL_AREA","sum"))
+             .reset_index()
+             .rename(columns={"STORY_3CAT":"HEIGHT_CLASS"}))
+grp_ht3 = grp_ht3.set_index("HEIGHT_CLASS").reindex(["Low-rise","Mid-rise","High-rise"]).reset_index()
+COLORS_HT = {"Low-rise":"#4C72B0","Mid-rise":"#DD8452","High-rise":"#55A868"}
+fig, ax = plt.subplots(figsize=(6, 4.5))
+ht_plot = grp_ht3.set_index("HEIGHT_CLASS")["BUILDINGS"]
+bars = ax.bar(ht_plot.index, ht_plot.values,
+              color=[COLORS_HT.get(h,"#999") for h in ht_plot.index],
+              edgecolor="white", linewidth=0.6, width=0.45)
+for bar in bars:
+    h = bar.get_height()
+    ax.text(bar.get_x() + bar.get_width()/2, h + ht_plot.max()*0.01,
+            f"{h:,.0f}", ha="center", va="bottom", fontsize=9, fontweight="bold")
+ax.set_title("Building Count by Height Class\nChiang Mai, Thailand",
              fontsize=12, fontweight="bold", pad=10)
-ax.set_xlabel("Occupancy Class", fontsize=10)
+ax.set_xlabel("Height Class", fontsize=10)
 ax.set_ylabel("Number of Buildings", fontsize=10)
 ax.yaxis.set_major_formatter(mticker.FuncFormatter(fmt_k))
-ax.legend(title="Height Class", bbox_to_anchor=(1.01, 1), loc="upper left",
-          fontsize=9, title_fontsize=9)
 ax.spines[["top","right"]].set_visible(False)
+ax.set_ylim(0, ht_plot.max() * 1.15)
 plt.tight_layout()
 plt.savefig(os.path.join(OUT_DIR, "expo_story_class.png"), dpi=150, bbox_inches="tight")
 plt.close()

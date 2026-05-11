@@ -19,10 +19,11 @@ PROVINCE_NAME = "Chiang Mai"
 
 # Occupancy mapping  OC_CLASS → GEM category
 OCC_MAP = {
-    "RES1": "Res", "RES2": "Res", "RES3A": "Res", "RES3B": "Res",
-    "RES3C": "Res", "RES3D": "Res", "RES3E": "Res", "RES3F": "Res",
+    "RES1": "Res", "RES2": "Res", "RES3": "Res",
+    "RES3A": "Res", "RES3B": "Res", "RES3C": "Res",
+    "RES3D": "Res", "RES3E": "Res", "RES3F": "Res",
     "RES4": "Res", "RES5": "Res", "RES6": "Res",
-    "COM1": "Com", "COM2": "Com", "COM3": "Com", "COM4": "Com",
+    "COM1": "Com", "COM1T": "Com", "COM2": "Com", "COM3": "Com", "COM4": "Com",
     "COM5": "Com", "COM6": "Com", "COM7": "Com", "COM8": "Com",
     "COM9": "Com", "COM10": "Com",
     "IND1": "Ind", "IND2": "Ind", "IND3": "Ind", "IND4": "Ind",
@@ -72,6 +73,7 @@ print(f"  Columns: {list(df.columns)}")
 # Normalise OC_CLASS
 df["OC_CLASS"] = df["OC_CLASS"].str.strip().str.upper()
 df["OCC_GEM"]  = df["OC_CLASS"].map(OCC_MAP).fillna("Other")
+df["OCC_3CAT"] = df["OCC_GEM"].apply(lambda x: x if x in ("Res", "Com") else "Others")
 
 # Normalise ST_TYPE
 df["ST_TYPE"]    = df["ST_TYPE"].str.strip().str.upper()
@@ -158,7 +160,7 @@ print(f"  {len(grp_ht)} height-class groups written.")
 # ═══════════════════════════════════════════════════════════════════════════
 # VISUALIZATIONS
 # ═══════════════════════════════════════════════════════════════════════════
-COLORS_OCC  = {"Res":"#4C72B0","Com":"#DD8452","Ind":"#55A868","Other":"#C44E52","Agr":"#8172B2"}
+COLORS_OCC  = {"Res":"#4C72B0","Com":"#DD8452","Others":"#55A868","Ind":"#C44E52","Other":"#C44E52","Agr":"#8172B2"}
 COLORS_TAXO = {
     "CR/LWAL":"#4C72B0","CR/LFINF":"#64B5CD","CR/LDUAL":"#1A6FA1",
     "W":"#55A868","MUR":"#DD8452","S":"#C44E52",
@@ -170,14 +172,20 @@ def fmt_k(x, _):
         return f"{x/1000:.0f}k"
     return f"{x:.0f}"
 
-# ── Fig 1: Occupancy breakdown — buildings (bar) ────────────────────────────
+# ── Fig 1: Occupancy breakdown — buildings (bar, 3 categories) ─────────────
 print("\nPlotting expo_occ_buildings.png ...")
-fig, ax = plt.subplots(figsize=(7, 4.5))
-occ_plot = grp_occ.set_index("OCCUPANCY")["BUILDINGS"]
+grp_occ3 = (df.groupby("OCC_3CAT")
+              .agg(BUILDINGS=("BLDGID","count"),
+                   TOTAL_AREA_SQM=("FL_AREA","sum"))
+              .reset_index()
+              .rename(columns={"OCC_3CAT":"OCCUPANCY"}))
+grp_occ3 = grp_occ3.set_index("OCCUPANCY").reindex(["Res","Com","Others"]).reset_index()
+fig, ax = plt.subplots(figsize=(6, 4.5))
+occ_plot = grp_occ3.set_index("OCCUPANCY")["BUILDINGS"]
 bars = ax.bar(occ_plot.index,
               occ_plot.values,
               color=[COLORS_OCC.get(o,"#999") for o in occ_plot.index],
-              edgecolor="white", linewidth=0.6, width=0.55)
+              edgecolor="white", linewidth=0.6, width=0.45)
 for bar in bars:
     h = bar.get_height()
     ax.text(bar.get_x() + bar.get_width()/2, h + occ_plot.max()*0.01,
@@ -220,13 +228,13 @@ plt.tight_layout()
 plt.savefig(os.path.join(OUT_DIR, "expo_story_class.png"), dpi=150, bbox_inches="tight")
 plt.close()
 
-# ── Fig 5: Pie — occupancy share ────────────────────────────────────────────
+# ── Fig 5: Pie — occupancy share (3 categories) ─────────────────────────────
 print("Plotting expo_occ_pie.png ...")
 fig, axes = plt.subplots(1, 2, figsize=(10, 5))
 for ax, col, label in zip(axes,
                            ["BUILDINGS","TOTAL_AREA_SQM"],
                            ["Buildings","Floor Area (m²)"]):
-    vals   = grp_occ.set_index("OCCUPANCY")[col]
+    vals   = grp_occ3.set_index("OCCUPANCY")[col]
     colors = [COLORS_OCC.get(o,"#999") for o in vals.index]
     wedges, texts, autotexts = ax.pie(
         vals, labels=vals.index, autopct="%1.1f%%",

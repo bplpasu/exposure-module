@@ -9,12 +9,14 @@
 ```
 exposure-module/
 ├── Exposure-Module.csv                # Building-level exposure (~96,635 assets)
+├── Construction Cost.csv              # Construction cost data by building type
+├── Occupants.csv                      # Occupant count data by building type
 ├── Exposure_Summary_OccClass.csv      # Building count & area by occupancy class
 ├── Exposure_Summary_Taxonomy.csv      # Building count & area by GEM taxonomy
 ├── Exposure_Summary_STType.csv        # Building count & area by structural type
 ├── Exposure_Summary_StoryClass.csv    # Building count & area by height class
-├── expo_occ_buildings.png             # Chart: buildings by occupancy
-├── expo_occ_pie.png                   # Chart: occupancy share (pie)
+├── expo_occ_buildings.png             # Chart: buildings by occupancy (Res/Com/Others)
+├── expo_occ_pie.png                   # Chart: occupancy share pie (Res/Com/Others)
 ├── expo_story_class.png               # Chart: buildings by height class
 └── analyze.py                         # Analysis & figure generation script
 ```
@@ -50,15 +52,13 @@ The exposure dataset covers **96,635 buildings** across Chiang Mai Province coll
 
 ### Occupancy Classes
 
-Occupancy follows the **HAZUS classification** system, mapped to GEM categories:
+Occupancy follows the **HAZUS classification** system, grouped into three categories:
 
-| GEM Category | HAZUS Classes | Description |
-|---|---|---|
-| `Res` | RES1–RES6 | Residential buildings |
-| `Com` | COM1–COM10 | Commercial buildings |
-| `Ind` | IND1–IND6 | Industrial buildings |
-| `Agr` | AGR1 | Agricultural buildings |
-| `Other` | REL1, GOV1–2, EDU1–2 | Religious, government, educational |
+| Category | HAZUS Classes | Buildings | Share |
+|---|---|---|---|
+| `Res` | RES1–RES6 | 74,650 | 77.25% |
+| `Com` | COM1–COM10 | 16,952 | 17.54% |
+| `Others` | IND1–6, AGR1, REL1, GOV1–2, EDU1–2 | 5,033 | 5.21% |
 
 ### Structural Types
 
@@ -103,13 +103,21 @@ Building structural types follow the **HAZUS SIC** classification as used in the
 | `Condition` | Text | Building condition rating |
 | `AGE` | Text | Building age class |
 | `Cluster` | Integer | Spatial cluster ID |
-| `GG_SURVEY_MU` | Integer | Google Street View survey flag (MU area) |
+| `GG_SURVEY_R1` | Integer | Google Street View Round 1 survey flag |
 | `GG_SURVEY_SPACE` | Integer | Google Street View survey flag (space imagery) |
-| `GG_SURVEY_UAV` | Integer | UAV survey flag |
+| `GG_SURVEY_R2` | Integer | Google Street View Round 2 / supplementary survey flag |
 | `WK_SURVEY_R1` | Integer | Walk survey round 1 flag |
 | `WK_SURVEY_R2` | Integer | Walk survey round 2 flag |
 | `TRUEEXPOSURE` | Integer | Verified exposure record flag |
 | `Extrapolated` | Integer | Statistically imputed record flag |
+
+### `Construction Cost.csv`
+
+Construction cost data by structural type and occupancy class, used for economic loss estimation.
+
+### `Occupants.csv`
+
+Occupant count data by occupancy class and time of day, used for casualty estimation.
 
 * * *
 

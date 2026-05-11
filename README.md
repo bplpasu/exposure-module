@@ -113,11 +113,16 @@ Building structural types follow the **HAZUS SIC** classification as used in the
 
 ### `Construction Cost.csv`
 
-Construction cost data by structural type and occupancy class, used for economic loss estimation.
+Building replacement cost data sourced from the **Thai Valuers Association**. Due to discrepancies between the association's building categories and the occupancy classes defined in this study, a matching process was implemented to align replacement costs with the corresponding occupancy classes.
 
 ### `Occupants.csv`
 
-Occupant count data by occupancy class and time of day, used for casualty estimation.
+Occupant counts collected through walking surveys by directly interviewing residents. Two time points were recorded per building:
+
+| Time | Type |
+|---|---|
+| 14:00 (2:00 PM) | Daytime occupants |
+| 02:00 (2:00 AM) | Nighttime occupants |
 
 * * *
 

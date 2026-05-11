@@ -257,7 +257,7 @@ print(f"  Total buildings      : {len(df):>10,}")
 print(f"  Total floor area (sqm): {df['FL_AREA'].sum():>15,.0f}")
 print(f"  Unique OC_CLASS      : {df['OC_CLASS'].nunique():>10}")
 print(f"  Unique ST_TYPE       : {df['ST_TYPE'].nunique():>10}")
-print(f"  Extrapolated records : {int(df['Extrapolated'].sum()):>10,}")
+print(f"  Unique Tags          : {df['Tag'].nunique():>10}")
 print("="*55)
 print("\nFiles generated:")
 for f in ["Exposure_Summary_OccClass.csv","Exposure_Summary_Taxonomy.csv",

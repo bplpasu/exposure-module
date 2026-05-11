@@ -98,17 +98,10 @@ Building structural types follow the **HAZUS SIC** classification as used in the
 | `STORY` | Integer | Number of stories |
 | `ST_TYPE` | Text | Structural type (HAZUS, e.g., C3) |
 | `OC_CLASS` | Text | Occupancy class (HAZUS, e.g., RES1, COM1) |
-| `Tag` | Text | Survey source tag |
+| `Tag` | Text | Survey source (`GSV`, `FieldSurvey`, `FieldSurveyR2`) |
 | `Condition` | Text | Building condition rating |
 | `AGE` | Text | Building age class |
 | `Cluster` | Integer | Spatial cluster ID |
-| `GG_SURVEY_R1` | Integer | Google Street View Round 1 survey flag |
-| `GG_SURVEY_SPACE` | Integer | Google Street View survey flag (space imagery) |
-| `GG_SURVEY_R2` | Integer | Google Street View Round 2 / supplementary survey flag |
-| `WK_SURVEY_R1` | Integer | Walk survey round 1 flag |
-| `WK_SURVEY_R2` | Integer | Walk survey round 2 flag |
-| `TRUEEXPOSURE` | Integer | Verified exposure record flag |
-| `Extrapolated` | Integer | Statistically imputed record flag |
 
 ### `Replacement Cost.csv`
 

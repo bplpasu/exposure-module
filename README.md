@@ -8,17 +8,21 @@
 
 ```
 exposure-module/
-├── Exposure-Module.csv                # Building-level exposure (~96,635 assets)
-├── Replacement Cost.csv              # Construction cost data by building type
-├── Occupants.csv                      # Occupant count data by building type
-├── Exposure_Summary_OccClass.csv      # Building count & area by occupancy class
-├── Exposure_Summary_Taxonomy.csv      # Building count & area by GEM taxonomy
-├── Exposure_Summary_STType.csv        # Building count & area by structural type
-├── Exposure_Summary_StoryClass.csv    # Building count & area by height class
-├── expo_occ_buildings.png             # Chart: buildings by occupancy (Res/Com/Others)
-├── expo_occ_pie.png                   # Chart: occupancy share pie (Res/Com/Others)
-├── expo_story_class.png               # Chart: buildings by height class
-└── analyze.py                         # Analysis & figure generation script
+├── data/
+│   ├── Exposure-Module.csv            # Building-level exposure (~96,635 assets)
+│   ├── Replacement Cost.csv           # Building replacement cost (Thai Valuers Association)
+│   └── Occupants.csv                  # Daytime & nighttime occupant counts
+├── results/
+│   ├── Exposure_Summary_OccClass.csv  # Building count & area by occupancy class
+│   ├── Exposure_Summary_Taxonomy.csv  # Building count & area by GEM taxonomy
+│   ├── Exposure_Summary_STType.csv    # Building count & area by structural type
+│   ├── Exposure_Summary_StoryClass.csv# Building count & area by height class
+│   ├── expo_occ_buildings.png         # Chart: buildings by occupancy (Res/Com/Others)
+│   ├── expo_occ_pie.png               # Chart: occupancy share pie (Res/Com/Others)
+│   └── expo_story_class.png           # Chart: buildings by height class
+├── scripts/
+│   └── analyze.py                     # Analysis & figure generation script
+└── README.md
 ```
 
 * * *
@@ -27,15 +31,15 @@ exposure-module/
 
 ### Occupancy Distribution
 
-![Buildings by Occupancy](expo_occ_buildings.png)
+![Buildings by Occupancy](results/expo_occ_buildings.png)
 
-![Occupancy Share](expo_occ_pie.png)
+![Occupancy Share](results/expo_occ_pie.png)
 
 * * *
 
 ### Height Class Distribution
 
-![Buildings by Height Class](expo_story_class.png)
+![Buildings by Height Class](results/expo_story_class.png)
 
 * * *
 
@@ -127,7 +131,7 @@ The collected data were subsequently aggregated using a **weighted arithmetic me
 ## Reproducing the Analysis
 
 ```bash
-python analyze.py
+python scripts/analyze.py
 ```
 
 Requires: `pandas`, `matplotlib`, `numpy`

@@ -10,8 +10,8 @@ import numpy as np
 import os
 
 # ── Config ─────────────────────────────────────────────────────────────────
-INPUT_CSV  = r"C:\Exposure-Module\Exposure-Module.csv"
-OUT_DIR    = r"C:\Exposure-Module"
+INPUT_CSV  = r"C:\Exposure-Module\data\Exposure-Module.csv"
+OUT_DIR    = r"C:\Exposure-Module\results"
 COUNTRY    = "THA"
 COUNTRY_NAME = "Thailand"
 PROVINCE   = "AREA # TH57"

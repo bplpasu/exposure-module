@@ -9,7 +9,7 @@
 ```
 exposure-module/
 ├── Exposure-Module.csv                # Building-level exposure (~96,635 assets)
-├── Construction Cost.csv              # Construction cost data by building type
+├── Replacement Cost.csv              # Construction cost data by building type
 ├── Occupants.csv                      # Occupant count data by building type
 ├── Exposure_Summary_OccClass.csv      # Building count & area by occupancy class
 ├── Exposure_Summary_Taxonomy.csv      # Building count & area by GEM taxonomy
@@ -111,7 +111,7 @@ Building structural types follow the **HAZUS SIC** classification as used in the
 | `TRUEEXPOSURE` | Integer | Verified exposure record flag |
 | `Extrapolated` | Integer | Statistically imputed record flag |
 
-### `Construction Cost.csv`
+### `Replacement Cost.csv`
 
 Building replacement cost data sourced from the **Thai Valuers Association**. Due to discrepancies between the association's building categories and the occupancy classes defined in this study, a matching process was implemented to align replacement costs with the corresponding occupancy classes.
 

@@ -124,6 +124,8 @@ Occupant counts collected through walking surveys by directly interviewing resid
 | 14:00 (2:00 PM) | Daytime occupants |
 | 02:00 (2:00 AM) | Nighttime occupants |
 
+The collected data were subsequently aggregated using a **weighted arithmetic mean**, as presented in the file.
+
 * * *
 
 ## Coordinate Reference System

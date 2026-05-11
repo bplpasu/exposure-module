@@ -11,7 +11,7 @@ exposure-module/
 ├── data/
 │   ├── Exposure-Module.csv            # Building-level exposure (~96,635 assets)
 │   ├── Replacement Cost.csv           # Building replacement cost (Thai Valuers Association)
-│   └── Occupants.csv                  # Daytime & nighttime occupant counts
+│   └── Building Occupants.csv                  # Daytime & nighttime occupant counts
 ├── results/
 │   ├── Exposure_Summary_OccClass.csv  # Building count & area by occupancy class
 │   ├── Exposure_Summary_Taxonomy.csv  # Building count & area by GEM taxonomy
@@ -117,7 +117,7 @@ Building structural types follow the **HAZUS SIC** classification as used in the
 
 Building replacement cost data sourced from the **Thai Valuers Association**. Due to discrepancies between the association's building categories and the occupancy classes defined in this study, a matching process was implemented to align replacement costs with the corresponding occupancy classes.
 
-### `Occupants.csv`
+### `Building Occupants.csv`
 
 Occupant counts collected through walking surveys by directly interviewing residents. Two time points were recorded per building:
 

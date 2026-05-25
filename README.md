@@ -1,6 +1,6 @@
 # Building Exposure Module — Chiang Mai, Thailand
 
-> This repository provides a building-level exposure dataset for seismic risk assessment in Chiang Mai Province, Thailand. The dataset was developed as part of a catastrophe (CAT) model for earthquake loss estimation compatible with the **OpenQuake Engine** framework. Building attributes including structural type, occupancy class, floor area, and height were derived from a multi-source survey campaign covering ~96,635 assets.
+> This repository provides a building-level exposure dataset for seismic risk assessment in Chiang Mai Province, Thailand. The dataset was developed as part of a catastrophe (CAT) model for earthquake loss estimation compatible with the **OpenQuake Engine** framework. Building attributes including structural type, occupancy class, floor area, and height were derived from a multi-source survey campaign covering ~96,483 assets.
 
 * * *
 
@@ -9,7 +9,7 @@
 ```
 exposure-module/
 ├── data/
-│   ├── Exposure-Module.csv            # Building-level exposure (~96,635 assets)
+│   ├── Exposure-Module.csv            # Building-level exposure (~96,483 assets)
 │   ├── Replacement Cost.csv           # Building replacement cost (Thai Valuers Association)
 │   └── Building Occupants.csv                  # Daytime & nighttime occupant counts
 ├── results/
@@ -27,7 +27,7 @@ exposure-module/
 
 * * *
 
-## Country Summary
+## Exposure Summary
 
 ### Occupancy Distribution
 
@@ -41,8 +41,8 @@ exposure-module/
 
 | Class | Stories | Buildings | Share |
 |---|---|---|---|
-| Low-rise | 1–3 | 93,019 | 96.26% |
-| Mid-rise | 4–9 | 3,517 | 3.64% |
+| Low-rise | 1–3 | 92,878 | 96.26% |
+| Mid-rise | 4–9 | 3,506 | 3.63% |
 | High-rise | 10+ | 99 | 0.10% |
 
 ![Buildings by Height Class](results/expo_story_class.png)
@@ -51,13 +51,12 @@ exposure-module/
 
 ## Building Inventory
 
-The exposure dataset covers **96,635 buildings** across Chiang Mai Province collected through three survey methods:
+The exposure dataset covers **96,483 buildings** across Chiang Mai Province collected through two survey methods:
 
 | Tag | Survey Method | Buildings |
 |---|---|---|
-| `GSV` | Google Street View | 88,848 |
-| `FieldSurvey` | In-person field survey (Round 1) | 3,564 |
-| `FieldSurveyR2` | In-person field survey (Round 2) | 4,223 |
+| `GSV` | Google Street View (incl. Round 2 mobile-360° / drone imagery) | 92,933 |
+| `FieldSurvey` | In-person field survey (Basic-Level sample) | 3,550 |
 
 ### Occupancy Classes
 
@@ -65,9 +64,9 @@ Occupancy follows the **HAZUS classification** system, grouped into three catego
 
 | Category | HAZUS Classes | Buildings | Share |
 |---|---|---|---|
-| `Res` | RES1–RES6 | 74,650 | 77.25% |
-| `Com` | COM1–COM10 | 16,952 | 17.54% |
-| `Others` | IND1–6, AGR1, REL1, GOV1–2, EDU1–2 | 5,033 | 5.21% |
+| `Res` | RES1–RES6 | 74,525 | 77.24% |
+| `Com` | COM1–COM10, COM1T | 16,931 | 17.55% |
+| `Others` | IND1–6, AGR1, REL1, GOV1–2, EDU1–2 | 5,027 | 5.21% |
 
 ### Structural Types
 

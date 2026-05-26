@@ -55,7 +55,7 @@ The exposure dataset covers **96,483 buildings** across Chiang Mai Province coll
 
 | Tag | Survey Method | Buildings |
 |---|---|---|
-| `GSV` | Google Street View (incl. Round 2 mobile-360° / drone imagery) | 92,933 |
+| `GSV` | Google Street View (incl. mobile-360° / drone imagery) | 92,933 |
 | `FieldSurvey` | In-person field survey (Basic-Level sample) | 3,550 |
 
 ### Occupancy Classes

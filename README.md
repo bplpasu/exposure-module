@@ -41,8 +41,8 @@ exposure-module/
 
 | Class | Stories | Buildings | Share |
 |---|---|---|---|
-| Low-rise | 1–3 | 92,878 | 96.26% |
-| Mid-rise | 4–9 | 3,506 | 3.63% |
+| Low-rise | 1–3 | 92,877 | 96.26% |
+| Mid-rise | 4–9 | 3,507 | 3.63% |
 | High-rise | 10+ | 99 | 0.10% |
 
 ![Buildings by Height Class](results/expo_story_class.png)
@@ -92,6 +92,49 @@ Building structural types follow the **HAZUS SIC** classification as used in the
 | `URM` / `URML` | MUR/LWAL | Unreinforced Masonry Bearing Walls | 1–2 / 3+ |
 | `MH` | MH | Mobile Homes | All |
 
+#### Combined structural types
+
+A small number of buildings were recorded with two combined HAZUS structural
+types, for example `C3+W1` where a reinforced-concrete frame and a timber
+structure occur in the same building. The GEM Building Taxonomy describes a
+single lateral load-resisting system per building, so these combinations have
+no direct equivalent and are recorded as **`N/A`** in the `MACRO_TAXO` and
+`TAXONOMY` fields. The full HAZUS code is always retained in `ST_TYPE`, so no
+information is lost.
+
+This affects **696 buildings (0.72%)** across 22 combined codes, the most
+frequent being `C3+W1` (397), `C4+C2` (93), `C3+W` (60) and `C3+W2` (58).
+
+> **Note for `pandas` users:** `N/A` is in the default null-value list, so
+> `read_csv` returns `NaN` for these fields unless `keep_default_na=False`
+> is passed.
+
+* * *
+
+## Classification Systems
+
+The dataset carries two parallel building classification systems.
+
+| Field | System | Where |
+|---|---|---|
+| `ST_TYPE` | HAZUS structural type, e.g. `C3`, `W1`, `C3+W1` | `data/Exposure-Module.csv` |
+| `OC_CLASS` | HAZUS occupancy class, e.g. `RES1`, `COM1` | `data/Exposure-Module.csv` |
+| `MACRO_TAXO` | GEM macro-taxonomy | `results/Exposure_Summary_Taxonomy.csv` |
+| `TAXONOMY` | Full GEM Building Taxonomy string | `results/Exposure_Summary_Taxonomy.csv` |
+
+**`MACRO_TAXO`** is a simplified classification grouping buildings by
+predominant construction material and lateral load-resisting system —
+`CR/LFINF`, `CR/MF`, `W`, `S/MF` and so on. The HAZUS-to-GEM mapping applied
+is given in the Structural Types table above.
+
+**`TAXONOMY`** combines the macro-taxonomy with a height band and the HAZUS
+occupancy class, for example `CR/LFINF/H:2-3/COM1`. Height bands are `H:1`,
+`H:2-3`, `H:4-5`, `H:6-9` and `H:10+`.
+
+HAZUS classifications are used throughout the accompanying study; the GEM
+taxonomy is provided so the dataset can be used directly with the OpenQuake
+Engine.
+
 * * *
 
 ## Data Description
@@ -107,7 +150,7 @@ Building structural types follow the **HAZUS SIC** classification as used in the
 | `STORY` | Integer | Number of stories |
 | `ST_TYPE` | Text | Structural type (HAZUS, e.g., C3) |
 | `OC_CLASS` | Text | Occupancy class (HAZUS, e.g., RES1, COM1) |
-| `Tag` | Text | Survey source (`GSV`, `FieldSurvey`, `FieldSurveyR2`) |
+| `Tag` | Text | Source of the final attributes (`GSV`, `FieldSurvey`) |
 | `Condition` | Text | Building condition rating |
 | `AGE` | Text | Building age class |
 | `Cluster` | Integer | Spatial cluster ID |

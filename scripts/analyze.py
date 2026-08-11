@@ -77,7 +77,11 @@ df["OCC_3CAT"] = df["OCC_GEM"].apply(lambda x: x if x in ("Res", "Com") else "Ot
 
 # Normalise ST_TYPE
 df["ST_TYPE"]    = df["ST_TYPE"].str.strip().str.upper()
-df["MACRO_TAXO"] = df["ST_TYPE"].map(TAXO_LABEL).fillna(df["ST_TYPE"])
+# Buildings recorded with two combined HAZUS structural types (e.g. C3+W1) have
+# no single-string equivalent in the GEM taxonomy, which describes one lateral
+# load-resisting system per building. These are marked N/A rather than carrying
+# the HAZUS code through into a GEM-labelled field.
+df["MACRO_TAXO"] = df["ST_TYPE"].map(TAXO_LABEL).fillna("N/A")
 
 # Build a simple GEM-style taxonomy string: MACRO_TAXO / H:<stories> / OCC_GEM
 def story_band(n):

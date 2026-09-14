@@ -186,6 +186,27 @@ Requires: `pandas`, `matplotlib`, `numpy`
 
 * * *
 
+## License
+
+| Content | Licence |
+|---|---|
+| Data (`data/`, `results/`), figures, and documentation | [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/) — see [`LICENSE`](LICENSE) |
+| Source code (`scripts/`) | [MIT](https://opensource.org/licenses/MIT) — see [`LICENSE-CODE`](LICENSE-CODE) |
+
+The dataset is released under **Creative Commons Attribution 4.0 International
+(CC BY 4.0)**: you are free to share and adapt it, including commercially,
+provided you give appropriate credit and indicate whether changes were made.
+Creative Commons licences are not intended for software, so the analysis code
+is released under the MIT licence instead.
+
+**Attribution.** Please cite the accompanying paper (see *Citation* below) and
+link to this repository.
+
+Building attributes were derived by the authors from street-level and aerial
+imagery and from field survey. The licence covers the attribute dataset
+produced by this work; it does not extend to any third-party imagery used
+during its compilation.
+
 ## Citation
 
 > *To be updated upon publication.*

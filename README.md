@@ -1,6 +1,6 @@
 # Building Exposure Module — Chiang Mai, Thailand
 
-> This repository provides a building-level exposure dataset for seismic risk assessment in Chiang Mai Province, Thailand. The dataset was developed as part of a catastrophe (CAT) model for earthquake loss estimation compatible with the **OpenQuake Engine** framework. Building attributes including structural type, occupancy class, floor area, and height were derived from a multi-source survey campaign covering ~96,483 assets.
+> This repository provides a building-level exposure dataset for seismic risk assessment in Chiang Mai Province, Thailand. The dataset was developed as part of a catastrophe (CAT) model for earthquake loss estimation compatible with the **OpenQuake Engine** framework in future work. Building attributes including structural type, occupancy class, floor area, and height were derived from a multi-source survey campaign covering ~96,483 assets.
 
 * * *
 
